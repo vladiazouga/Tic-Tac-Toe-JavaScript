@@ -1,4 +1,3 @@
-
 const statusDisplay = document.querySelector('.status');
 let gameDraw = document.querySelectorAll('#drawScore')
 //Displays players score
@@ -69,24 +68,24 @@ function handleResultValidation() {
     //If the the game is active then call the next player
     //And execute the computer move
     if(gameActive){
-        
+        console.log(gameActive)
         handlePlayerChange();
         //Let there be a delay before computer's turn to look like the computer is thinking
         setTimeout(() => 
         {handleComputerMove();}, 2000);
+        
 
     }//If human player wins display and update point on scoreboard
     else if(gameActive == false && handleWinCondition() == true){
         playerWins++
+        console.log(playerWins)
         perScore.innerHTML = `Player Score: ${playerWins} `;
         statusDisplay.innerHTML = 'Human Player Wins This Round!!!';
         statusDisplay.style.color = "rgb(251,100,204)";
     //So player can change turns if didn't win
     }
     
-
-    
-    
+       
 }
 
 function handleWinCondition(){//checkWin()
@@ -128,12 +127,7 @@ function handleWinCondition(){//checkWin()
         gameActive = false;
         statusDisplay.style.color = "rgb(251,100,204)";
         return false;}
-        /*else if(){
-        gameDraw++
-        gameDraw.innerHTML = `Games Tied: ${gameDraw} `;
-        statusDisplay.innerHTML = 'There is tie...Everbody Wins!!! (or Lose)';
-        statusDisplay.style.color = "rgb(251,100,204)";
-        }*/
+        
         
     }
 
@@ -144,6 +138,8 @@ function handleComputerMove(){
     
     //First has to pick the best move
     pickComputerMove();
+    
+
     if(!handleWinCondition()){
         //Check if the the computer made a winning combo
         handlePlayerChange()
@@ -151,6 +147,7 @@ function handleComputerMove(){
     //If computer wins display and update point on scoreboard
     if(gameActive == false && handleWinCondition() == true){
         compWins++
+        console.log(compWins)
         compScore.innerHTML = `Computer Score: ${compWins}`;
         statusDisplay.innerHTML = `Computer Wins This Round :(`;
         statusDisplay.style.color = "rgb(251,100,204)";
@@ -167,6 +164,7 @@ function pickComputerMove(){
     while(true){
         //Finds a random number between 0 and 8
         var ranMove = Math.floor(Math.random() * 9)
+        console.log(ranMove)
         if(gameState[ranMove] == ''){
             break;
         } //Checks if its empty
@@ -176,8 +174,11 @@ function pickComputerMove(){
     //Will pick a random cell and set the computer move and updates the currentPlayer
     gameState[ranMove] = currentPlayer
     document.getElementById(ranMove).innerHTML = currentPlayer
+    console.log(currentPlayer)
+    
 
 };
+
  
 //Clicks the the current cell and registers the event 
 function handleCellClick(clickedCellEvent) {
@@ -197,15 +198,17 @@ function handleCellClick(clickedCellEvent) {
 function handleRestartGame() {
     gameActive = true;
     currentPlayer = human;
-    //currentPlayer = "X";
+    console.log(currentPlayer)
     gameState = ["", "", "", "", "", "", "", "", ""];
     statusDisplay.style.color = "rgb(65, 65, 65)";
     statusDisplay.innerHTML = currentPlayerTurn();
     document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = "");
     //Resets the board back to white for the new game
     document.querySelectorAll('.cell').forEach(cell => cell.style.backgroundColor = "white");
-    //
+    //Picks a random number between 0 and 1 and if the number is more than .5 the game will run
+    //This randomly changes who plays first after every game is rest
     let first = Math.random()
+    console.log(first)
     if(first >= 0.5)
     {
         handleResultValidation();
