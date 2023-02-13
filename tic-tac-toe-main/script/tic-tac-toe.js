@@ -1,5 +1,6 @@
 
 const statusDisplay = document.querySelector('.status');
+let gameDraw = document.querySelectorAll('#drawScore')
 //Displays players score
 let personScore = document.querySelector('#perScore')
 //Displays computer's score
@@ -8,10 +9,15 @@ let compScore = document.querySelector('#compScore')
 let compWins = 0;
 //Tracks the wins of the computer and updates the scoreboard
 let playerWins = 0;
-let currentPlayer = "X";
-/*let currentPlayer;
-let human;
-let computer;*/
+//Declare the X symbol for human player
+let human = "X";
+//Have the human player become a placeholder for the currentPlayer
+let currentPlayer = human;
+//Declare the O symbol for human player
+let computer = "O";
+
+
+
 
 let gameActive = true;
 console.log(currentPlayer)
@@ -46,25 +52,10 @@ function handleCellPlayed(clickedCell, clickedCellIndex) {
     clickedCell.innerHTML = currentPlayer;
 }
 
-/*//Create a random choice for who goes first - human or computer
-//Pick a random number between 0 and 1 
-let first = Math.random()
-    if(first <= .5){
-        currentPlayer = "X";
-        
-    }
-    else if(first > .5){
-        currentPlayer = "O";
-         
-    }
-    console.log(first)
-    human = currentPlayer;
-    computer = human === "X" ? "O" : "X"
-*/
+
 
 function handlePlayerChange() {
     
-    //currentPlayer = currentPlayer === human ? computer : human
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     statusDisplay.innerHTML = currentPlayerTurn();
 }
@@ -80,7 +71,9 @@ function handleResultValidation() {
     if(gameActive){
         
         handlePlayerChange();
-        handleComputerMove();
+        //Let there be a delay before computer's turn to look like the computer is thinking
+        setTimeout(() => 
+        {handleComputerMove();}, 2000);
 
     }//If human player wins display and update point on scoreboard
     else if(gameActive == false && handleWinCondition() == true){
@@ -90,6 +83,7 @@ function handleResultValidation() {
         statusDisplay.style.color = "rgb(251,100,204)";
     //So player can change turns if didn't win
     }
+    
 
     
     
@@ -133,64 +127,46 @@ function handleWinCondition(){//checkWin()
         statusDisplay.innerHTML = drawMessage();
         gameActive = false;
         statusDisplay.style.color = "rgb(251,100,204)";
-        return false;
+        return false;}
+        /*else if(){
+        gameDraw++
+        gameDraw.innerHTML = `Games Tied: ${gameDraw} `;
+        statusDisplay.innerHTML = 'There is tie...Everbody Wins!!! (or Lose)';
+        statusDisplay.style.color = "rgb(251,100,204)";
+        }*/
+        
     }
 
+
+
+
+function handleComputerMove(){
+    
+    //First has to pick the best move
+    pickComputerMove();
+    if(!handleWinCondition()){
+        //Check if the the computer made a winning combo
+        handlePlayerChange()
+    }
+    //If computer wins display and update point on scoreboard
+    if(gameActive == false && handleWinCondition() == true){
+        compWins++
+        compScore.innerHTML = `Computer Score: ${compWins}`;
+        statusDisplay.innerHTML = `Computer Wins This Round :(`;
+        statusDisplay.style.color = "rgb(251,100,204)";
+    
+    }
+    
+    
 
 }
-
-//let first = Math.random()
-/*if(first >= .5)
-{setTimeout(function handleComputerMove(){
-    
-    //First has to pick the best move
-    pickComputerMove();
-    if(!handleWinCondition()){
-        //Check if the the computer made a winning combo
-        handlePlayerChange()
-    }
-    //If computer wins display and update point on scoreboard
-    if(gameActive == false && handleWinCondition() == true){
-        compWins++
-        compScore.innerHTML = `Computer Score: ${compWins}`;
-        statusDisplay.innerHTML = `Computer Wins This Round :(`;
-        statusDisplay.style.color = "rgb(251,100,204)";
-    //So player can change turns if didn't win
-    }
-    ;
-    
-
-}, 3000) 
-
-}*/
-
-setTimeout(function handleComputerMove(){
-    
-    //First has to pick the best move
-    pickComputerMove();
-    if(!handleWinCondition()){
-        //Check if the the computer made a winning combo
-        handlePlayerChange()
-    }
-    //If computer wins display and update point on scoreboard
-    if(gameActive == false && handleWinCondition() == true){
-        compWins++
-        compScore.innerHTML = `Computer Score: ${compWins}`;
-        statusDisplay.innerHTML = `Computer Wins This Round :(`;
-        statusDisplay.style.color = "rgb(251,100,204)";
-    //So player can change turns if didn't win
-    }
-    ;
-    
-
-}, 3000)
 
 
 function pickComputerMove(){
     //Will loop through gameState array until and find a random available spot
     while(true){
         //Finds a random number between 0 and 8
-        var ranMove = Math.floor(Math.random() * 8)
+        var ranMove = Math.floor(Math.random() * 9)
         if(gameState[ranMove] == ''){
             break;
         } //Checks if its empty
@@ -199,7 +175,7 @@ function pickComputerMove(){
     }
     //Will pick a random cell and set the computer move and updates the currentPlayer
     gameState[ranMove] = currentPlayer
-    document.getElementById(ranMove).innerhtml = currentPlayer
+    document.getElementById(ranMove).innerHTML = currentPlayer
 
 };
  
@@ -220,14 +196,21 @@ function handleCellClick(clickedCellEvent) {
 
 function handleRestartGame() {
     gameActive = true;
-    //currentPlayer = human;
-    currentPlayer = "X";
+    currentPlayer = human;
+    //currentPlayer = "X";
     gameState = ["", "", "", "", "", "", "", "", ""];
     statusDisplay.style.color = "rgb(65, 65, 65)";
     statusDisplay.innerHTML = currentPlayerTurn();
     document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = "");
     //Resets the board back to white for the new game
     document.querySelectorAll('.cell').forEach(cell => cell.style.backgroundColor = "white");
+    //
+    let first = Math.random()
+    if(first >= 0.5)
+    {
+        handleResultValidation();
+    }
+
 }
 //Adds event listener to each cell id
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
