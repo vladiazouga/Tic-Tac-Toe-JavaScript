@@ -8,6 +8,8 @@ let compScore = document.querySelector('#compScore')
 let compWins = 0;
 //Tracks the wins of the computer and updates the scoreboard
 let playerWins = 0;
+
+let draws = 0;
 //Declare the X symbol for human player
 let human = "X";
 //Have the human player become a placeholder for the currentPlayer
@@ -124,6 +126,9 @@ function handleWinCondition(){//checkWin()
     let roundDraw = !gameState.includes("");
     if (roundDraw) {
         statusDisplay.innerHTML = drawMessage();
+        draws;
+        drawScore.innerHTML = `Draws: ${draws++}`
+        console.log("draw")
         gameActive = false;
         statusDisplay.style.color = "rgb(251,100,204)";
         return false;}
