@@ -11,16 +11,27 @@
   </head>
 
   <body>
+    <!--Adding a toast notification introduction from Bootstrap into the game -->
+    <div class="toast show">
+      <div class="toast-header">
+        <strong class="me-auto">Tic-Tac-Toe </strong>
+      </div>
+      <div class="toast-body">
+        <p>Hi, Welcome to my TicTacToe! Let's see if you can Beat the Computer....</p>
+      </div>
+    </div>
+  </div>
+  
     <div class="header">Tic-Tac-Toe</div>
+    <!--Add the scoreboard for the computer and player wins-->
     <div id = "perScore">
       Person Score: 
     </div>
     <div id = "compScore">
       Computer Score:
     </div>
-    <div id = "drawScore">
-      Games Tied:
-    </div>
+
+    <!--Added ids to each of the cell-->
     <div class="container">
       <div class="cell" id="0" data-cell-index="0"></div>
       <div class="cell" id="1" data-cell-index="1"></div>
@@ -33,6 +44,7 @@
       <div class="cell" id="8" data-cell-index="8"></div>
     </div>
     <p class="status"></p>
+    
     <button class="restart">New Game</button>
 
     <footer>
