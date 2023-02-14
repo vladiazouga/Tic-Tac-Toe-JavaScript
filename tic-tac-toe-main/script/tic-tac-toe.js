@@ -130,7 +130,7 @@ function handleWinCondition(){//checkWin()
         statusDisplay.innerHTML = drawMessage();
         draws;
         drawScore.innerHTML = `Draws: ${draws++}`
-        console.log("draws")
+        console.log(draws)
         gameActive = false;
         statusDisplay.style.color = "rgb(251,100,204)";
         return false;}
