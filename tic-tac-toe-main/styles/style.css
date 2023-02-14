@@ -5,8 +5,8 @@ body {
 }
 
 body {
-    color: rgb(65, 65, 65);
-    background-color: rgb(255, 255, 255);
+    color: rgb(194, 69, 69);
+    background-color: rgb(106, 114, 204);
     font-family: Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
@@ -65,8 +65,8 @@ a:visited {
 /******       Reload Button      *****/
 /*************************************/
 .restart {
-    color: rgb(65, 65, 65);
-    background-color: rgb(231, 231, 231);
+    color: rgb(48, 209, 227);
+    background-color: rgb(57, 41, 200);
     font-size: 1.2rem;
     font-weight: 600;
     order: 1;
@@ -79,7 +79,7 @@ a:visited {
 }
 
 .restart:hover {
-    color: rgb(255, 255, 255);
+    color: rgb(55, 86, 200);
     background-color: rgb(185, 185, 185);
     box-shadow: 0 5px 15px rgba(167, 167, 167, 0.4);
 

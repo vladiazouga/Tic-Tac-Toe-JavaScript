@@ -9,7 +9,7 @@ let compWins = 0;
 //Tracks the wins of the computer and updates the scoreboard
 let playerWins = 0;
 
-let draws = 0;
+let draws = null;
 //Declare the X symbol for human player
 let human = "X";
 //Have the human player become a placeholder for the currentPlayer
@@ -62,7 +62,8 @@ function handlePlayerChange() {
 }
 
 
-
+//Checks if the currentPlayer won if they didn't and the game is still active
+//it will call the next player  
 function handleResultValidation() {
    
     //Checks if currentPlayer won the game
@@ -128,7 +129,7 @@ function handleWinCondition(){//checkWin()
         statusDisplay.innerHTML = drawMessage();
         draws;
         drawScore.innerHTML = `Draws: ${draws++}`
-        console.log("draw")
+        console.log("draws")
         gameActive = false;
         statusDisplay.style.color = "rgb(251,100,204)";
         return false;}
@@ -138,7 +139,9 @@ function handleWinCondition(){//checkWin()
 
 
 
-
+//This function picks a random move for the computer if the computer wins it display 
+//a winning message for the computer and updates scoreboard. If not the player changes
+//back to the human player
 function handleComputerMove(){
     
     //First has to pick the best move
@@ -163,7 +166,7 @@ function handleComputerMove(){
 
 }
 
-
+//Picks a random computer move within the gameState array then display the spot it picked
 function pickComputerMove(){
     //Will loop through gameState array until and find a random available spot
     while(true){
