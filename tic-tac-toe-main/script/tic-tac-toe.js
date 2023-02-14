@@ -123,7 +123,8 @@ function handleWinCondition(){//checkWin()
         return true; //(this is because its a boolean true variable);
 
     }
-    //Checks if there is any empty spaces 
+    //Checks if there is a draw between the computer and the player and updates the
+    //Draws to the scoreboard
     let roundDraw = !gameState.includes("");
     if (roundDraw) {
         statusDisplay.innerHTML = drawMessage();
